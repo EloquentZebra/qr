@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>QR Code</title>
+	<link rel="stylesheet" href="css/base.css">
+	<style>
+		#qrcode {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding-top: 1em;
+		}
+
+		img,
+		svg {
+			padding: 0.5em;
+			width: clamp(150px, 100%, 500px);
+			border-radius: var(--border-radius);
+			box-shadow: var(--shadow);
+			background-color: var(--color-white);
+		}
+	</style>
+</head>
+<body class="container enable-dm">
+	<h1>QR-Code-Generator</h1>
+
+	<form onsubmit="makeCode();">
+		<input id="text" type="text" onfocusout="makeCode();" autofocus="autofocus" placeholder="URL einfügen">
+		<button onclick="makeCode();">Generieren</button>
+	</form>
+
+	<div id="qrcode">
+
+	</div>
+
+	<script src="qrcode.js"></script>
+	<script>
+		var qrcode = new QRCode("qrcode", {
+			width: 500,
+			height: 500,
+		});
+
+		function makeCode () {
+			event.preventDefault();
+			qrcode.makeCode(document.getElementById("text").value);
+		}
+	</script>
+
+</body>
+</html>
